@@ -6,6 +6,12 @@ from django.db import models
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, db_index=True)
-    body = models.CharField(max_length=200)
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+
+class Comment(models.Model):
+    target_post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    body = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True)
